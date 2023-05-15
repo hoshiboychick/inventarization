@@ -56,7 +56,8 @@
                     Width="200"
                     Height="24"
                     IsDefault="True"
-                    Content="Войти"/>
+                    Content="Войти"
+                    Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>

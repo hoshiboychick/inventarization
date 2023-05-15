@@ -22,4 +22,6 @@ public partial class Product
     public byte? DiscountAmount { get; set; }
 
     public int QuantityInStock { get; set; }
+
+    public virtual string? ImagePath { get { return System.IO.Path.Combine(Environment.CurrentDirectory, $"images/{Photo}"); } }
 }

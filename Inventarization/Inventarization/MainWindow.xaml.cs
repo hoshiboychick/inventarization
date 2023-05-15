@@ -27,8 +27,15 @@ namespace Inventarization
 
             using (InventarizationContext db = new InventarizationContext())
             {
-                MessageBox.Show($"{user.RoleNavigation.Name}: {user.Surname} {user.Name} {user.Patronymic}. \r\t");
+                statusUser.Text = $"{user.RoleNavigation.Name}: {user.Surname} {user.Name} {user.Patronymic}";
+                productlistView.ItemsSource = db.Products.ToList();
             }
+        }
+
+        private void logoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            new LoginWindow().Show();
+            this.Close();
         }
     }
 }
