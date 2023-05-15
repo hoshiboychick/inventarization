@@ -26,10 +26,11 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <Image Grid.Column="2"
@@ -89,6 +90,21 @@
                          Height="24" 
                          Width="150"     
                          TextChanged="searchTextBox_TextChanged"/>
+            </StackPanel>
+
+            <StackPanel Margin="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Column="5">
+                <TextBlock TextAlignment="Center"
+                           Name="countTextBlock"
+                           Text="Количество: "/>
+                <Button Name="clearButton"
+                        Height="24"
+                        Width="100"
+                        Margin="10"
+                        Content="Очистить"
+                        Click="clearButton_Click"/>
             </StackPanel>
         </Grid>
 

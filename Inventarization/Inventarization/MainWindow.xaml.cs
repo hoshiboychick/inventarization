@@ -34,6 +34,7 @@ namespace Inventarization
                 sortProductsComboBox.ItemsSource = sortList.ToList();
                 filtertList.Insert(0, "Все производители");
                 filterProductsComboBox.ItemsSource = filtertList.ToList();
+                countTextBlock.Text = $"Количество: {db.Products.Count()}";
             }
             
         }
@@ -92,6 +93,7 @@ namespace Inventarization
                 }
 
                 productlistView.ItemsSource = currentProducts;
+                countTextBlock.Text = $"Количество: {currentProducts.Count} из {db.Products.ToList().Count}";
             }
         }
 
@@ -139,6 +141,13 @@ namespace Inventarization
                 }
             }
             UpdateProducts();
+        }
+
+        private void clearButton_Click(object sender, RoutedEventArgs e)
+        {
+            searchTextBox.Text = "";
+            sortProductsComboBox.SelectedIndex = -1;
+            filterProductsComboBox.SelectedIndex = -1;
         }
     }
 }
