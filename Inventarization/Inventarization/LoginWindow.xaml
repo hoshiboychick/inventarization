@@ -36,31 +36,31 @@
             <StackPanel Margin="5">
                 <TextBlock Text="Логин"
                            Width="200"
-                           Height="20"/>
+                           Height="22"/>
                 <TextBox Name="loginTextBox"
                          Width="200"
-                         Height="20"/>
+                         Height="22"/>
             </StackPanel>
 
             <StackPanel Margin="5">
                 <TextBlock Text="Пароль"
                            Width="200"
-                           Height="20"/>
+                           Height="22"/>
                 <PasswordBox Name="passwordBox"
                          Width="200"
-                         Height="20"/>
+                         Height="22"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"
                         Margin="5">
                 <Button Name="loginButton"
                         Width="95"
-                        Height="20"
+                        Height="24"
                         IsDefault="True"
                         Content="Войти"/>
                 <Button Name="guestButton"
                         Width="95"
-                        Height="20"
+                        Height="24"
                         Content="Гость"
                         Margin="10 0 0 0"/>
             </StackPanel>
