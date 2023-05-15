@@ -51,19 +51,12 @@
                          Height="22"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal"
-                        Margin="5">
-                <Button Name="loginButton"
-                        Width="95"
-                        Height="24"
-                        IsDefault="True"
-                        Content="Войти"/>
-                <Button Name="guestButton"
-                        Width="95"
-                        Height="24"
-                        Content="Гость"
-                        Margin="10 0 0 0"/>
-            </StackPanel>
+            <Button Name="loginButton"
+                    Click="loginButton_Click"
+                    Width="200"
+                    Height="24"
+                    IsDefault="True"
+                    Content="Войти"/>
         </StackPanel>
     </Grid>
 </Window>

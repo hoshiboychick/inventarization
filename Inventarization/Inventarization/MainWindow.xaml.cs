@@ -21,9 +21,14 @@ namespace Inventarization
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
+
+            using (InventarizationContext db = new InventarizationContext())
+            {
+                MessageBox.Show($"{user.RoleNavigation.Name}: {user.Surname} {user.Name} {user.Patronymic}. \r\t");
+            }
         }
     }
 }
