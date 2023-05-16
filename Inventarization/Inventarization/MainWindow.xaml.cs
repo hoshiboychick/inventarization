@@ -149,5 +149,15 @@ namespace Inventarization
             sortProductsComboBox.SelectedIndex = -1;
             filterProductsComboBox.SelectedIndex = -1;
         }
+
+        private void addProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AddProductWindow().ShowDialog();
+        }
+
+        private void deleteProductButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

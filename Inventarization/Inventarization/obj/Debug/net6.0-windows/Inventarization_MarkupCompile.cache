@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 E:\ПДП\inventarization\Inventarization\Inventarization\App.xaml
-2-216653475
+3-1716646172
 
-81528137721
+9111171614
 222-1949991224
-LoginWindow.xaml;MainWindow.xaml;
+AddProductWindow.xaml;LoginWindow.xaml;MainWindow.xaml;
 
 False
 

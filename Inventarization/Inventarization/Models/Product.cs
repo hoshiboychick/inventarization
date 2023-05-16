@@ -19,7 +19,7 @@ public partial class Product
 
     public decimal Cost { get; set; }
 
-    public byte? DiscountAmount { get; set; }
+    public decimal DiscountAmount { get; set; }
 
     public int QuantityInStock { get; set; }
 

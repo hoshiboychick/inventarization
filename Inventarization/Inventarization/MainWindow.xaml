@@ -19,8 +19,9 @@
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -182,5 +183,25 @@
             </ListView.ItemTemplate>
             
         </ListView>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Name="adminStackPanel">
+            
+            <Button Name="addProductButton"
+                    Width="150"
+                    Height="24"
+                    Content="Добавить товар"
+                    Click="addProductButton_Click"
+                    Margin="5"/>
+            <Button Name="deleteProductButton"
+                    Width="150"
+                    Height="24"
+                    Content="Удалить товар"
+                    Click="deleteProductButton_Click"
+                    Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>

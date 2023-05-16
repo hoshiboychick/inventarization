@@ -67,3 +67,5 @@ E:\ПДП\inventarization\Inventarization\Inventarization\obj\Debug\net6.0-windo
 E:\ПДП\inventarization\Inventarization\Inventarization\obj\Debug\net6.0-windows\LoginWindow.g.cs
 E:\ПДП\inventarization\Inventarization\Inventarization\obj\Debug\net6.0-windows\LoginWindow.baml
 E:\ПДП\inventarization\Inventarization\Inventarization\obj\Debug\net6.0-windows\App.baml
+E:\ПДП\inventarization\Inventarization\Inventarization\obj\Debug\net6.0-windows\AddProductWindow.g.cs
+E:\ПДП\inventarization\Inventarization\Inventarization\obj\Debug\net6.0-windows\AddProductWindow.baml

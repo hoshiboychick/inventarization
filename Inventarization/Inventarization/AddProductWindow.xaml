@@ -1,0 +1,175 @@
+﻿<Window x:Class="Inventarization.AddProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Inventarization"
+        mc:Ignorable="d"
+        
+        Title="Добавление/редактирование товара" 
+        Height="750" 
+        Width="400"
+        
+        MinHeight="740"
+        MinWidth="390"
+        
+        MaxHeight="800"
+        MaxWidth="450">
+    <Grid>
+        <StackPanel Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <StackPanel Name="photoStackPanel"
+                        Orientation="Vertical"
+                        Width="260">
+                <TextBlock Text="Изображение"
+                           TextAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="photoTextBox"
+                         Margin="5"
+                         Height="20"
+                         IsReadOnly="True"
+                         Visibility="Collapsed"
+                         Text="{Binding Photo}"/>
+                <Border Margin="1"
+                        Height="200"
+                        Width="258"
+                        BorderBrush="#FFF7EC6F"
+                        BorderThickness="2">
+                    <Image Name="imageBoxPath"
+                           Margin="1"
+                           Source="{Binding ImagePath}">
+                    </Image>
+                </Border>
+            </StackPanel>
+            <StackPanel Name="idStackPanel"
+                        Orientation="Horizontal">
+                <TextBlock Text="Id"
+                           Width="100"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="idTextBox"
+                         Width="150"
+                         Height="24"
+                         Margin="5"
+                         Text="{Binding Id}"/>
+            </StackPanel>
+            <StackPanel Name="articleNumberStackPanel"
+                        Orientation="Horizontal">
+                <TextBlock Text="Артикул"
+                           Width="100"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="articleNumberTextBox"
+                         Width="150"
+                         Height="24"
+                         Margin="5"
+                         Text="{Binding ArticleNumber}"/>
+            </StackPanel>
+            <StackPanel Name="nameStackPanel"
+                        Orientation="Horizontal">
+                <TextBlock Text="Название"
+                           Width="100"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="nameTextBox"
+                         Width="150"
+                         Height="24"
+                         Margin="5"
+                         Text="{Binding Name}"/>
+            </StackPanel>
+            <StackPanel Name="manufacturerStackPanel"
+                        Orientation="Horizontal">
+                <TextBlock Text="Производитель"
+                           Width="100"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="manufacturerTextBox"
+                         Width="150"
+                         Height="24"
+                         Margin="5"
+                         Text="{Binding Manufacturer}"/>
+            </StackPanel>
+            <StackPanel Name="costStackPanel"
+                        Orientation="Horizontal">
+                <TextBlock Text="Цена"
+                           Width="100"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="costTextBox"
+                         Width="150"
+                         Height="24"
+                         Margin="5">
+                    <TextBox.Text>
+                        <Binding Path="Cost">
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Name="discountAmountStackPanel"
+                        Orientation="Horizontal">
+                <TextBlock Text="Скидка"
+                           Width="100"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="discountAmountTextBox"
+                         Width="150"
+                         Height="24"
+                         Margin="5"
+                         Text="{Binding DiscountAmount}"/>
+            </StackPanel>
+            <StackPanel Name="quantityInStockStackPanel"
+                        Orientation="Horizontal">
+                <TextBlock Text="В наличии"
+                           Width="100"
+                           VerticalAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="quantityInStockTextBox"
+                         Width="150"
+                         Height="24"
+                         Margin="5">
+                    <TextBox.Text>
+                        <Binding Path="QuantityInStock">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Name="descriptionStackPanel"
+                        Orientation="Vertical"
+                        Width="260">
+                <TextBlock Text="Описание"
+                           TextAlignment="Center"
+                           Margin="5"/>
+                <TextBox Name="descriptionTextBox"
+                         Margin="5"
+                         Height="100"
+                         Width="250"
+                         TextWrapping="Wrap"
+                         Text="{Binding Description}"/>
+            </StackPanel>
+            <StackPanel Name="buttonsStackPanel"
+                        Orientation="Vertical"
+                        Width="260">
+                <Button Name="addPhotoButton"
+                        Height="24"
+                        Width="150"
+                        Content="Добавить фото"
+                        Margin="5"
+                        Click="addPhotoButton_Click"/>
+                <Button Name="saveProductButton"
+                        Height="24"
+                        Width="150"
+                        Content="Сохранить товар"
+                        Margin="5"
+                        Click="saveProductButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
