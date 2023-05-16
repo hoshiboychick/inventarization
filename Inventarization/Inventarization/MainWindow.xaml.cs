@@ -21,12 +21,18 @@ namespace Inventarization
     /// </summary>
     public partial class MainWindow : Window
     {
+        User? currentUser = null;
         public MainWindow(User user)
         {
             InitializeComponent();
             using (InventarizationContext db = new InventarizationContext())
             {
+                currentUser = user;
                 statusUser.Text = $"{user.RoleNavigation.Name}: {user.Surname} {user.Name} {user.Patronymic}";
+                if (currentUser.RoleNavigation.Name != "Администратор")
+                {
+                    adminStackPanel.Visibility = Visibility.Collapsed;
+                }
                 productlistView.ItemsSource = db.Products.ToList();
 
                 List<string> sortList = new List<string>() { "По возрастанию цены", "По убыванию цены" }; 
@@ -157,13 +163,34 @@ namespace Inventarization
 
         private void deleteProductButton_Click(object sender, RoutedEventArgs e)
         {
+            using (InventarizationContext db = new InventarizationContext())
+            {
+                var product = (productlistView.SelectedItem) as Product;
 
+                if (product != null)
+                {
+
+                    if (MessageBox.Show($"Вы точно хотите удалить {product.Name}", "Внимание!",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        db.Products.Remove(product);
+                        db.SaveChanges();
+                        MessageBox.Show($"Товар {product.Name} удален!");
+                        productlistView.ItemsSource = db.Products.ToList();
+                        countTextBlock.Text = $"Количество: {db.Products.Count()}";
+                    }
+
+                }
+            }
         }
 
         private void editProduct_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Product p = (sender as ListView).SelectedItem as Product;
-            new AddProductWindow(p).ShowDialog();
+            if (currentUser.RoleNavigation.Name == "Администратор")
+            {
+                Product p = (sender as ListView).SelectedItem as Product;
+                new AddProductWindow(p).ShowDialog();
+            }
         }
     }
 }
