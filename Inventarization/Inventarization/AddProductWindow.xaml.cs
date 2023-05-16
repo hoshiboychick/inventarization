@@ -27,9 +27,22 @@ namespace Inventarization
         string? newImage;
         string? newImagePath;
 
-        public AddProductWindow()
+        public AddProductWindow(Product product)
         {
             InitializeComponent();
+
+            this.Title = "Добавление товара";
+
+            if (product != null)
+            {
+                currentProduct = product;
+                this.Title = "Редактирование товара";
+                DataContext = currentProduct;
+            }
+            else
+            {
+                idStackPanel.Visibility = Visibility.Hidden;
+            }
         }
 
         private void saveProductButton_Click(object sender, RoutedEventArgs e)
@@ -59,65 +72,129 @@ namespace Inventarization
 
             using (InventarizationContext db = new InventarizationContext())
             {
-                try
+                if (currentProduct == null) 
                 {
-                    Product product = new Product()
+                    try
                     {
+                        Product product = new Product()
+                        {
 
-                        ArticleNumber = articleNumberTextBox.Text,
-                        Name = nameTextBox.Text,
-                        Description = descriptionTextBox.Text,
-                        Photo = photoTextBox.Text, // "picture.png",
-                        Manufacturer = manufacturerTextBox.Text,
-                        Cost = Convert.ToDecimal(costTextBox.Text),
-                        DiscountAmount = Convert.ToInt32(discountAmountTextBox.Text),
-                        QuantityInStock = Convert.ToInt32(quantityInStockTextBox.Text),
-                    };
+                            ArticleNumber = articleNumberTextBox.Text,
+                            Name = nameTextBox.Text,
+                            Description = descriptionTextBox.Text,
+                            Photo = photoTextBox.Text, // "picture.png",
+                            Manufacturer = manufacturerTextBox.Text,
+                            Cost = Convert.ToDecimal(costTextBox.Text),
+                            DiscountAmount = Convert.ToInt32(discountAmountTextBox.Text),
+                            QuantityInStock = Convert.ToInt32(quantityInStockTextBox.Text),
+                        };
 
-                    if (product.Cost < 0)
+                        if (product.Cost < 0)
+                        {
+                            MessageBox.Show("Цена должна быть положительной!");
+                            return;
+                        }
+
+                        if (product.QuantityInStock < 0)
+                        {
+                            MessageBox.Show("Количество товаров на складе не может быть меньше нуля!");
+                            return;
+                        }
+
+                        db.Products.Add(product);
+
+
+                        if (String.IsNullOrEmpty(newImage))
+                        {
+                            product.Photo = "picture.png";
+                            BitmapImage image = new BitmapImage(new Uri(product.ImagePath));
+                            image.CacheOption = BitmapCacheOption.OnLoad;
+                            imageBoxPath.Source = image;
+                        }
+                        else
+                        {
+                            string newRelativePath = $"{System.DateTime.Now.ToString("HHmmss")}_{newImage}";
+                            product.Photo = newRelativePath;
+
+                            File.Copy(newImagePath, System.IO.Path.Combine(Environment.CurrentDirectory, $"images/{newRelativePath}"));
+
+                            BitmapImage image = new BitmapImage(new Uri(product.ImagePath));
+                            image.CacheOption = BitmapCacheOption.OnLoad;
+
+                            imageBoxPath.Source = image;
+                        }
+
+
+                        db.SaveChanges();
+
+                        MessageBox.Show("Продукт успешно добавлен!");
+
+                        MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+                        (mainWindow.FindName("productlistView") as ListView).ItemsSource = db.Products.ToList();
+                        (mainWindow.FindName("countTextBlock") as TextBlock).Text = $"Количество: {db.Products.Count()}";
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.InnerException.ToString());
+                    }
+                }
+                else
+                {
+                    if (currentProduct.Cost < 0)
                     {
                         MessageBox.Show("Цена должна быть положительной!");
                         return;
                     }
 
-                    if (product.QuantityInStock < 0)
+                    if (currentProduct.QuantityInStock < 0)
                     {
                         MessageBox.Show("Количество товаров на складе не может быть меньше нуля!");
                         return;
                     }
 
-                    db.Products.Add(product);
-
-
-                    if (String.IsNullOrEmpty(newImage))
-                    {
-                        product.Photo = "picture.png";
-                        BitmapImage image = new BitmapImage(new Uri(product.ImagePath));
-                        image.CacheOption = BitmapCacheOption.OnLoad;
-                        imageBoxPath.Source = image;
-                    }
-                    else
+                    if (newImage != null)
                     {
                         string newRelativePath = $"{System.DateTime.Now.ToString("HHmmss")}_{newImage}";
-                        product.Photo = newRelativePath;
-
-                        File.Copy(newImagePath, System.IO.Path.Combine(Environment.CurrentDirectory, $"images/{newRelativePath}"));
-
-                        BitmapImage image = new BitmapImage(new Uri(product.ImagePath));
-                        image.CacheOption = BitmapCacheOption.OnLoad;
-
-                        imageBoxPath.Source = image;
+                        currentProduct.Photo = newRelativePath;
+                        MessageBox.Show($"Новое фото: {currentProduct.Photo} присвоено!");
+                        File.Copy(newImagePath, System.IO.Path.Combine(Environment.CurrentDirectory, $"images/{currentProduct.Photo}"));
+                        newImage = null;
                     }
 
 
-                    db.SaveChanges();
+                    // если есть старое фото, то пытаемся его удалить
 
-                    MessageBox.Show("Продукт успешно добавлен!");
+                    if (!string.IsNullOrEmpty(oldImage))
+                    {
+                        try
+                        {
+                            File.Delete(oldImage);
+                            MessageBox.Show($"Старое фото: {oldImage} удалено!");
+                            oldImage = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message.ToString());
+                        }
+                    }
+
+                    try
+                    {
+                        db.Products.Update(currentProduct);
+                        db.SaveChanges();
+                        MessageBox.Show("Продукт успешно обновлен!");
+
+                        MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+                        (mainWindow.FindName("productlistView") as ListView).ItemsSource = db.Products.ToList();
+                        (mainWindow.FindName("countTextBlock") as TextBlock).Text = $"Количество: {db.Products.Count()}";
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.InnerException.ToString());
-                }
+
+                
             }
         }
 

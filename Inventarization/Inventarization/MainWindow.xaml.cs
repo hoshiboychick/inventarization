@@ -152,12 +152,18 @@ namespace Inventarization
 
         private void addProductButton_Click(object sender, RoutedEventArgs e)
         {
-            new AddProductWindow().ShowDialog();
+            new AddProductWindow(null).ShowDialog();
         }
 
         private void deleteProductButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void editProduct_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Product p = (sender as ListView).SelectedItem as Product;
+            new AddProductWindow(p).ShowDialog();
         }
     }
 }
