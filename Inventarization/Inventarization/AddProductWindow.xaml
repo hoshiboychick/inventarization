@@ -14,7 +14,11 @@
         MinWidth="390"
         
         MaxHeight="800"
-        MaxWidth="450">
+        MaxWidth="450"
+        
+        Icon="Resources/icon.ico"
+        WindowStartupLocation="CenterScreen">
+    
     <Grid>
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Center"
